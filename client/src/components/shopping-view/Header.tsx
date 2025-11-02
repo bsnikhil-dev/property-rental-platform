@@ -1,34 +1,63 @@
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import logo from '../../assets/logo.png';
 import SearchDropDown from '../searchDropDown/SearchDropDown';
-import { filterDestinations } from '../../utils/utilityFunctions/Common';
+import { filterDestinations, formatDatesForInput } from '../../utils/utilityFunctions/Common';
 import type { Destination } from '../../types';
 import { destinations } from '../../constants/data';
+import CustomDatePicker from '../datePicker/DatePicker';
+import type { DateRange } from 'react-day-picker';
 
 const ShoppingHeader = () => {
   const [showSearchDropDown, setShowSearchDropDown] = useState<boolean>(false);
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [destination, setDestination] = useState<string>('');
   const [filteredDestinations, setFilteredDestinations] = useState<Destination[]>(destinations);
+  const [selectedDates, setSelectedDates] = useState<DateRange | undefined>();
+
+  const searchWrapperRef = useRef<HTMLDivElement>(null);
+  const datePickerhWrapperRef = useRef<HTMLDivElement>(null);
 
   const handleDestinationInput = (e: ChangeEvent<HTMLInputElement>) => {
     const filtered = filterDestinations(e.target.value.toLowerCase());
     setFilteredDestinations(filtered);
   };
+
   const handleSearchButton = () => {
     console.log(destination);
+    console.log(selectedDates);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchWrapperRef.current && !searchWrapperRef.current.contains(event.target as Node)) {
+        setShowSearchDropDown(false);
+      }
+      if (
+        datePickerhWrapperRef.current &&
+        !datePickerhWrapperRef.current.contains(event.target as Node)
+      ) {
+        setShowDatePicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <div className="bg-gray-200">
       <nav className="flex px-10 py-6 justify-between items-center">
         <img src={logo} className="w-15 h-15 rounded-full" />
         <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-xl mx-auto">
-          <div className="flex flex-col w-md cursor-pointer border-r border-gray-300 px-4 relative">
-            <label className="text-xs font-semibold text-gray-500">Where</label>
+          <div
+            ref={searchWrapperRef}
+            className="flex flex-col w-md cursor-pointer border-r border-gray-300 px-4 relative"
+          >
+            <label className="text-md font-semibold text-gray-500">Where</label>
             <input
               type="text"
               placeholder="Search destinations"
               value={destination}
-              className="text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="text-md text-gray-700 placeholder-gray-400 focus:outline-none"
               onChange={e => {
                 setDestination(e.target.value);
                 setShowSearchDropDown(true);
@@ -36,6 +65,7 @@ const ShoppingHeader = () => {
               }}
               onFocus={() => setShowSearchDropDown(true)}
             />
+
             <SearchDropDown
               showSearchDropDown={showSearchDropDown}
               setShowSearchDropDown={setShowSearchDropDown}
@@ -43,12 +73,23 @@ const ShoppingHeader = () => {
               destinationList={filteredDestinations}
             />
           </div>
-          <div className="flex flex-col w-md  px-4">
-            <label className="text-xs font-semibold text-gray-500">When</label>
+          <div
+            ref={datePickerhWrapperRef}
+            className="relative flex flex-col w-md  px-4 border-r border-gray-300"
+          >
+            <label className="text-md font-semibold text-gray-500">When</label>
             <input
               type="text"
               placeholder="Add dates"
-              className="text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="text-md text-gray-700 placeholder-gray-400 focus:outline-none"
+              onClick={() => setShowDatePicker(prev => !prev)}
+              readOnly
+              value={formatDatesForInput(selectedDates)}
+            />
+            <CustomDatePicker
+              showDatePicker={showDatePicker}
+              selctedDates={selectedDates}
+              setSelectedDates={setSelectedDates}
             />
           </div>
           <button
