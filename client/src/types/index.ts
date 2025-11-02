@@ -1,5 +1,6 @@
 import type React from 'react';
 import type { ReactNode } from 'react';
+import type { DateRange } from 'react-day-picker';
 
 export interface userDetails {
   username: string;
@@ -54,4 +55,10 @@ export interface SearchDropDownProps {
   setShowSearchDropDown: React.Dispatch<React.SetStateAction<boolean>>;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   destinationList: Destination[];
+}
+
+export interface CustomDatePickerProps {
+  showDatePicker: boolean;
+  selctedDates: DateRange | undefined;
+  setSelectedDates: (dateRage: DateRange | undefined) => void;
 }
