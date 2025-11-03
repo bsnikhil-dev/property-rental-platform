@@ -45,19 +45,19 @@ const ShoppingHeader = () => {
 
   return (
     <div className="bg-gray-200">
-      <nav className="flex px-10 py-6 justify-between items-center">
+      <nav className="flex px-10 py-4 justify-between items-center">
         <img src={logo} className="w-15 h-15 rounded-full" />
         <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-xl mx-auto">
           <div
             ref={searchWrapperRef}
-            className="flex flex-col w-md cursor-pointer border-r border-gray-300 px-4 relative"
+            className="flex flex-col w-xs cursor-pointer border-r border-gray-300 px-4 relative"
           >
-            <label className="text-md font-semibold text-gray-500">Where</label>
+            <label className="text-sm font-semibold text-gray-500">Where</label>
             <input
               type="text"
               placeholder="Search destinations"
               value={destination}
-              className="text-md text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
               onChange={e => {
                 setDestination(e.target.value);
                 setShowSearchDropDown(true);
@@ -75,13 +75,13 @@ const ShoppingHeader = () => {
           </div>
           <div
             ref={datePickerhWrapperRef}
-            className="relative flex flex-col w-md  px-4 border-r border-gray-300"
+            className="relative flex flex-col w-xs  px-4 border-r border-gray-300"
           >
-            <label className="text-md font-semibold text-gray-500">When</label>
+            <label className="text-sm font-semibold text-gray-500">When</label>
             <input
               type="text"
               placeholder="Add dates"
-              className="text-md text-gray-700 placeholder-gray-400 focus:outline-none"
+              className="text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
               onClick={() => setShowDatePicker(prev => !prev)}
               readOnly
               value={formatDatesForInput(selectedDates)}

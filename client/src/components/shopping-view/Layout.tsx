@@ -3,10 +3,9 @@ import ShoppingHeader from './Header';
 
 const ShoppingLayout = () => {
   return (
-    <div>
-      <ShoppingHeader />
+    <>
       <Outlet />
-    </div>
+    </>
   );
 };
 
