@@ -30,6 +30,7 @@ function App() {
       >
         <Route index element={<LoginPage />} />
       </Route>
+
       <Route
         path="/admin"
         element={
@@ -42,19 +43,12 @@ function App() {
         <Route path="orders" element={<AdminOrdersdPage />} />
         <Route path="products" element={<AdminProductsdPage />} />
       </Route>
-      <Route
-        path="/shop"
-        element={
-          // <CheckAuthentication isAuthenticated={auth} userDetails={user}>
-          <ShoppingLayout />
-          // </CheckAuthentication>
-        }
-      >
-        <Route path="home" element={<HomePage />} />
-        <Route path="checkout" element={<CheckOutPage />} />
-        <Route path="listing" element={<ListingPage />} />
-        <Route path="account" element={<AccountPage />} />
-      </Route>
+
+      <Route path="/shop" element={<HomePage />} />
+      <Route path="/checkout" element={<CheckOutPage />} />
+      <Route path="/listing" element={<ListingPage />} />
+      <Route path="/account" element={<AccountPage />} />
+
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/unauthorized" element={<UnAuthorizedPage />} />
     </Routes>
