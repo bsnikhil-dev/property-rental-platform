@@ -6,6 +6,9 @@ import type { Destination } from '../../types';
 import { destinations } from '../../constants/data';
 import CustomDatePicker from '../datePicker/DatePicker';
 import type { DateRange } from 'react-day-picker';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import SettingsModal from '../settingsModal/SettingsModal';
+import { Link } from 'react-router-dom';
 
 const ShoppingHeader = () => {
   const [showSearchDropDown, setShowSearchDropDown] = useState<boolean>(false);
@@ -13,6 +16,7 @@ const ShoppingHeader = () => {
   const [destination, setDestination] = useState<string>('');
   const [filteredDestinations, setFilteredDestinations] = useState<Destination[]>(destinations);
   const [selectedDates, setSelectedDates] = useState<DateRange | undefined>();
+  const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
 
   const searchWrapperRef = useRef<HTMLDivElement>(null);
   const datePickerhWrapperRef = useRef<HTMLDivElement>(null);
@@ -45,7 +49,7 @@ const ShoppingHeader = () => {
 
   return (
     <div className="bg-gray-200">
-      <nav className="flex px-10 py-4 justify-between items-center">
+      <nav className="flex pr-4 pl-10 py-4 justify-between items-center">
         <img src={logo} className="w-15 h-15 rounded-full" />
         <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-xl mx-auto">
           <div
@@ -113,39 +117,19 @@ const ShoppingHeader = () => {
           </button>
         </div>
 
-        <div className="flex flex-row gap-4">
-          <button className="bg-red-200 p-4 rounded-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-4 h-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.25 2.25h1.386c.51 0 .96.343 1.093.834l.383 1.436m0 0L6.75 12.75h10.5l1.875-7.5H5.112m0 0L4.5 4.5m3 15.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm10.5 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-              />
-            </svg>
+        <div className="flex flex-row gap-4 relative">
+          <Link to={`/rental/checkout`}>
+            <button className="bg-gray-500 text-white font-bold text-xl p-4 rounded-full w-12 h-12 flex items-center justify-center hover:cursor-pointer">
+              <FaShoppingCart className="text-xl" />
+            </button>
+          </Link>
+          <button
+            onClick={() => setShowSettingsModal(prev => !prev)}
+            className="bg-gray-500 text-white font-bold text-xl p-4 rounded-full w-12 h-12 flex items-center justify-center hover:cursor-pointer"
+          >
+            <FaUser className="text-xl" />
           </button>
-          <button className="bg-blue-200 p-4 rounded-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-4 h-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.25 2.25h1.386c.51 0 .96.343 1.093.834l.383 1.436m0 0L6.75 12.75h10.5l1.875-7.5H5.112m0 0L4.5 4.5m3 15.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm10.5 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-              />
-            </svg>
-          </button>
+          <SettingsModal showModal={showSettingsModal} />
         </div>
       </nav>
     </div>

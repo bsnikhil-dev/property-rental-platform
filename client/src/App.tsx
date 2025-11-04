@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import './App.css';
 import AuthLayout from './components/auth/Layout';
 import LoginPage from './pages/auth/Login';
@@ -6,7 +6,6 @@ import AdminLayout from './components/admin-view/Layout';
 import AdminDashboardPage from './pages/admin-view/DashBoardPage';
 import AdminOrdersdPage from './pages/admin-view/OrdersPage';
 import AdminProductsdPage from './pages/admin-view/ProductsPage';
-import ShoppingLayout from './components/shopping-view/Layout';
 import NotFoundPage from './pages/not-found';
 import HomePage from './pages/shopping-view/Home';
 import CheckOutPage from './pages/shopping-view/Checkout';
@@ -44,10 +43,21 @@ function App() {
         <Route path="products" element={<AdminProductsdPage />} />
       </Route>
 
-      <Route path="/shop" element={<HomePage />} />
-      <Route path="/checkout" element={<CheckOutPage />} />
-      <Route path="/listing" element={<ListingPage />} />
-      <Route path="/account" element={<AccountPage />} />
+      <Route
+        path="/rental"
+        element={
+          <CheckAuthentication isAuthenticated={auth} userDetails={user}>
+            <Outlet />
+          </CheckAuthentication>
+        }
+      >
+        <Route index path="home" element={<HomePage />} />
+        <Route path="details/:id" element={<h1>Details</h1>} />
+        <Route path="checkout" element={<CheckOutPage />} />
+        <Route path="wishlist" element={<ListingPage />} />
+        <Route path="account" element={<AccountPage />} />
+        <Route path="help" element={<>Help</>} />
+      </Route>
 
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/unauthorized" element={<UnAuthorizedPage />} />

@@ -16,7 +16,7 @@ const CheckAuthentication = ({
     return userDetails.role === 'admin' ? (
       <Navigate to="/admin/dashboard" />
     ) : (
-      <Navigate to="/shop/home" />
+      <Navigate to="/rental/home" />
     );
   }
 
@@ -24,7 +24,7 @@ const CheckAuthentication = ({
     return <Navigate to="/unauthorized" />;
   }
 
-  if (isAuthenticated && userDetails.role === 'admin' && location.pathname.includes('shop')) {
+  if (isAuthenticated && userDetails.role === 'admin' && location.pathname.includes('rental')) {
     return <Navigate to="/admin/dashboard" />;
   }
   return children;
