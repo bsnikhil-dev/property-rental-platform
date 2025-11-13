@@ -14,6 +14,7 @@ import AccountPage from './pages/shopping-view/Account';
 import CheckAuthentication from './utils/utilityComponents/CheckAuthentication';
 import UnAuthorizedPage from './pages/unautorized/UnAuthorizedPage';
 import { useAppSelector } from './app/hooks';
+import ViewProperyPage from './pages/shopping-view/ViewProperty';
 
 function App() {
   const { isAuthenticated: auth, user } = useAppSelector(state => state.authentication);
@@ -52,7 +53,7 @@ function App() {
         }
       >
         <Route index path="home" element={<HomePage />} />
-        <Route path="details/:id" element={<h1>Details</h1>} />
+        <Route path="details/:id" element={<ViewProperyPage />} />
         <Route path="checkout" element={<CheckOutPage />} />
         <Route path="wishlist" element={<ListingPage />} />
         <Route path="account" element={<AccountPage />} />
