@@ -3,16 +3,31 @@ import upi from '../../assets/upi.jpg';
 import cards from '../../assets/cards.png';
 import netbaking from '../../assets/netbaking.png';
 import pin1 from '../../assets/pin1.jpeg';
-
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import { useNavigate } from 'react-router-dom';
+
 const CheckOutPage = () => {
+  const navigate = useNavigate();
+  const handleBackButton = () => {
+    navigate(-1);
+  };
+  const handleLogo = () => {
+    navigate('/rental/home');
+  };
   return (
     <div>
-      <nav className="bg-gray-200 flex pr-4 pl-10 py-4 justify-between items-center">
-        <img src={logo} className="w-15 h-15 rounded-full" />
+      <nav className="bg-gray-200 flex pr-4 pl-10 py-4  justify-between items-center">
+        <img
+          src={logo}
+          onClick={handleLogo}
+          className="w-15 h-15 rounded-full hover:cursor-pointer"
+        />
       </nav>
       <div className="flex w-auto gap-4 py-5 mx-48 items-center">
-        <button className=" flex items-center justify-center bg-gray-100 text-gray-700 rounded-full w-10 h-10">
+        <button
+          onClick={handleBackButton}
+          className=" flex items-center justify-center bg-gray-100 text-gray-700 rounded-full w-10 h-10 hover:cursor-pointer"
+        >
           <ArrowLeftIcon className="w-4 h-4" />
         </button>
         <h3 className="text-gray-500 font-bold text-3xl tracking-tight">Confirm and Pay</h3>
@@ -28,7 +43,7 @@ const CheckOutPage = () => {
               <text className="text-gray-600 font-bold">Dates</text>
               <span className="text-gray-600 font-normal">11-14 Nov 2025</span>
             </div>
-            <button className="bg-gray-500 text-white px-3 py-1 rounded-3xl hover:bg-gray-700 hover:cursor-pointer">
+            <button className="bg-rose-400 text-white px-3 py-1 rounded-3xl hover:bg-rose-600 hover:cursor-pointer">
               Change
             </button>
           </div>
@@ -37,7 +52,7 @@ const CheckOutPage = () => {
               <text className="text-gray-600 font-bold">Guests</text>
               <span className="text-gray-600 font-normal">2 adults</span>
             </div>
-            <button className="bg-gray-500 text-white px-3 py-1 rounded-3xl hover:bg-gray-700 hover:cursor-pointer">
+            <button className="bg-rose-400 text-white px-3 py-1 rounded-3xl hover:bg-rose-600 hover:cursor-pointer">
               Change
             </button>
           </div>
@@ -59,32 +74,52 @@ const CheckOutPage = () => {
                 <img src={upi} alt="upi" className="w-10" />
                 <text className="text-gray-500 font-normal text-lg">UPI QR code</text>
               </div>
-              <input type="radio" className="cursor-pointer w-5 h-5" />
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="qr-code"
+                className="cursor-pointer w-5 h-5"
+              />
             </li>
             <li className="text-black mb-8 font-light text-md flex items-center justify-between gap-5">
               <div className="flex items-center gap-5">
                 <img src={upi} alt="upi" className="w-10" />
                 <text className="text-gray-500 font-normal text-lg">UPI ID</text>
               </div>
-              <input type="radio" className="cursor-pointer w-5 h-5" />
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="upi-id"
+                className="cursor-pointer w-5 h-5"
+              />
             </li>
             <li className="text-black mb-8 font-light text-md flex items-center justify-between gap-5">
               <div className="flex items-center gap-5">
                 <img src={cards} alt="upi" className="w-8" />
                 <text className="text-gray-500 font-normal text-lg">Credit or Debit Cards</text>
               </div>
-              <input type="radio" className="cursor-pointer w-5 h-5" />
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="card"
+                className="cursor-pointer w-5 h-5"
+              />
             </li>
             <li className="text-black mb-8 font-light text-md flex items-center justify-between gap-5">
               <div className="flex items-center gap-5">
                 <img src={netbaking} alt="upi" className="w-8" />
                 <text className="text-gray-500 font-normal text-lg">Net Banking</text>
               </div>
-              <input type="radio" className="cursor-pointer w-5 h-5" />
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="net-banking"
+                className="cursor-pointer w-5 h-5"
+              />
             </li>
           </ul>
           <div className="flex justify-end">
-            <button className="bg-gray-600 text-white px-10 py-2 rounded-3xl hover:bg-gray-700 hover:cursor-pointer">
+            <button className="bg-rose-400 text-white px-10 py-2 rounded-3xl hover:bg-rose-600 hover:cursor-pointer">
               Next
             </button>
           </div>

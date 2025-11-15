@@ -8,9 +8,10 @@ import CustomDatePicker from '../datePicker/DatePicker';
 import type { DateRange } from 'react-day-picker';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import SettingsModal from '../settingsModal/SettingsModal';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ShoppingHeader = () => {
+  const navigate = useNavigate();
   const [showSearchDropDown, setShowSearchDropDown] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [destination, setDestination] = useState<string>('');
@@ -20,6 +21,7 @@ const ShoppingHeader = () => {
 
   const searchWrapperRef = useRef<HTMLDivElement>(null);
   const datePickerhWrapperRef = useRef<HTMLDivElement>(null);
+  const settingsModalRef = useRef<HTMLDivElement>(null);
 
   const handleDestinationInput = (e: ChangeEvent<HTMLInputElement>) => {
     const filtered = filterDestinations(e.target.value.toLowerCase());
@@ -31,6 +33,9 @@ const ShoppingHeader = () => {
     console.log(selectedDates);
   };
 
+  const handleLogo = () => {
+    navigate('/rental/home');
+  };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchWrapperRef.current && !searchWrapperRef.current.contains(event.target as Node)) {
@@ -42,6 +47,9 @@ const ShoppingHeader = () => {
       ) {
         setShowDatePicker(false);
       }
+      if (settingsModalRef.current && !settingsModalRef.current.contains(event.target as Node)) {
+        setShowSettingsModal(false);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -50,7 +58,11 @@ const ShoppingHeader = () => {
   return (
     <div className="bg-gray-200">
       <nav className="flex pr-4 pl-10 py-4 justify-between items-center">
-        <img src={logo} className="w-15 h-15 rounded-full" />
+        <img
+          src={logo}
+          onClick={handleLogo}
+          className="w-15 h-15 rounded-full hover:cursor-pointer"
+        />
         <div className="flex items-center bg-white rounded-full px-4 py-2 shadow-xl mx-auto">
           <div
             ref={searchWrapperRef}
@@ -129,7 +141,11 @@ const ShoppingHeader = () => {
           >
             <FaUser className="text-xl" />
           </button>
-          <SettingsModal showModal={showSettingsModal} />
+          <SettingsModal
+            modalRef={settingsModalRef}
+            showModal={showSettingsModal}
+            setShowModal={setShowSettingsModal}
+          />
         </div>
       </nav>
     </div>

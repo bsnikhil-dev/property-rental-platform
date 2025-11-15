@@ -4,8 +4,10 @@ import hoodie from '../../assets/hoodie.jpg';
 import nike from '../../assets/nike.jpg';
 import puma from '../../assets/puma.jpg';
 import cap from '../../assets/cap.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const ViewProperyPage = () => {
+  const navigate = useNavigate();
   const leftFeatures = [
     { label: 'Garden View', available: true },
     { label: 'Sea View', available: false },
@@ -19,6 +21,10 @@ const ViewProperyPage = () => {
     { label: 'Wifi - 222Mbps', available: true },
     { label: 'TV', available: false },
   ];
+
+  const handleReserveButton = () => {
+    navigate('/rental/checkout');
+  };
   return (
     <>
       <ShoppingHeader />
@@ -117,7 +123,12 @@ const ViewProperyPage = () => {
               </select>
             </div>
           </div>
-          <button className="bg-rose-400 py-3 rounded-3xl text-white">Reserve</button>
+          <button
+            onClick={handleReserveButton}
+            className="bg-rose-400 py-3 rounded-3xl text-white hover:cursor-pointer hover:bg-rose-600"
+          >
+            Reserve
+          </button>
           <p className="text-center text-gray-700 text-md">You Won't be charged yet</p>
         </div>
       </div>
