@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import './App.css';
 import AuthLayout from './components/auth/Layout';
 import LoginPage from './pages/auth/Login';
@@ -20,6 +20,8 @@ function App() {
   const { isAuthenticated: auth, user } = useAppSelector(state => state.authentication);
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/auth" />} />
+
       <Route
         path="/auth"
         element={
